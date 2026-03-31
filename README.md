@@ -7,6 +7,16 @@ It uses internally the GraphViz's [xdot output format](http://www.graphviz.org/d
 
 _xdot.py_ can be used either as a standalone application from command line, or as a library embedded in your Python application.
 
+megatron-thx version
+====================
+== Install
+
+``` bash
+cd /path/to/your/repo
+git config --local user.name "megatron-thx"
+git config --local user.email "megatron.thx@vx1"
+```
+
 Status
 ======
 
