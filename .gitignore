@@ -5,3 +5,7 @@
 *.egg-info
 build
 dist
+GTK3_Gvsbuild_2026.3.0_x64.zip
+windows_10_cmake_Release_Graphviz-14.1.4-win64.zip
+Graphviz/
+gtk/

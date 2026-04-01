@@ -9,12 +9,93 @@ _xdot.py_ can be used either as a standalone application from command line, or a
 
 megatron-thx version
 ====================
-== Install
+
+todo
+====
+-[] merge multiline
+
+Install
+=======
 
 ``` bash
 cd /path/to/your/repo
 git config --local user.name "megatron-thx"
 git config --local user.email "megatron.thx@vx1"
+```
+
+Install in Linux
+================
+
+**Note** check what is redundant i a fresh instalation...
+
+``` bash
+sudo apt install gir1.2-gtk-3.0 python3-gi python3-gi-cairo graphviz
+sudo apt install libcairo2-dev pkg-config python3-dev
+sudo apt install libgirepository1.0-dev libcairo2-dev pkg-config python3-dev
+sudo apt install python3-gi python3-gi-cairo
+sudo apt install python3-gi python3-gi-cairo gir1.2-gtk-3.0 graphviz
+sudo apt install gir1.2-gtk-3.0 python3-gi python3-gi-cairo python3-numpy graphviz
+```
+
+Install in windows
+==================
+
+https://github.com/wingtk/gvsbuild
+
+``` bash
+  rm -rf .venv
+  python -m venv .venv
+  source .venv/Scripts/activate
+  python -m pip install --upgrade pip
+
+  # 1. Create the target folder
+  mkdir -p gtk/
+
+  # 2. Download the ZIP using curl
+  curl -L -o GTK3_Gvsbuild_2026.3.0_x64.zip \
+    https://github.com/wingtk/gvsbuild/releases/download/2026.3.0/GTK3_Gvsbuild_2026.3.0_x64.zip
+
+  # 3. Extract it directly to C:\gtk (using unzip)
+  unzip GTK3_Gvsbuild_2026.3.0_x64.zip -d gtk/
+
+  # 4. (Optional) Clean up the zip file
+  rm GTK4_Gvsbuild_2026.3.0_x64.zip
+
+  # Install pycairo first
+  pip install --force-reinstall ./gtk/wheels/pycairo-1.29.0-cp314-cp314-win_amd64.whl
+
+  # Then install pygobject
+  pip install --force-reinstall ./gtk/wheels/pygobject-3.56.1-cp314-cp314-win_amd64.whl
+
+  BASE_DIR="$(pwd)"
+  export PATH="$BASE_DIR/gtk/bin:$PATH"
+  export PKG_CONFIG_PATH="$BASE_DIR/gtk/lib/pkgconfig:$PKG_CONFIG_PATH"
+
+  mkdir -p Graphviz/
+  curl -L -o windows_10_cmake_Release_Graphviz-14.1.4-win64.zip \
+    https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/14.1.4/windows_10_cmake_Release_Graphviz-14.1.4-win64.zip
+
+  unzip windows_10_cmake_Release_Graphviz-14.1.4-win64.zip -d Graphviz/
+
+  export PATH="$BASE_DIR/Graphviz/Graphviz-14.1.4-win64/bin:$PATH"
+
+  pip install --force-reinstall ./gtk/wheels/pycairo-1.29.0-cp314-cp314-win_amd64.whl
+  pip install --force-reinstall ./gtk/wheels/pygobject-3.56.1-cp314-cp314-win_amd64.whl
+
+  pip install numpy
+  pip install packaging
+
+  deactivate
+```
+
+work In Windows
+===============
+
+``` bash
+source activate.sh
+
+python sample.py
+deactivate
 ```
 
 Status
