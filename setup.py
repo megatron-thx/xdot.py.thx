@@ -29,10 +29,20 @@ setup(
         xdot.py can be used either as a standalone application from command
         line, or as a library embedded in your python application.
         """,
-    license="LGPL",
 
+    license="LGPL",
     packages=['xdot', 'xdot/dot', 'xdot/ui'],
-    entry_points=dict(gui_scripts=['xdot=xdot.__main__:main']),
+    entry_points={
+        'gui_scripts': [
+            'xdot=xdot.__main__:main',
+            'xdot-multiline=xdot.multiline:main',  # 👈 NEW CLI/GUI tool
+        ],
+    },
+    install_requires=[
+        'PyGObject',
+        'numpy',
+        'packaging',
+    ],
 
     # https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
@@ -52,11 +62,5 @@ setup(
         'Programming Language :: Python :: 3 :: Only',
 
         'Topic :: Multimedia :: Graphics :: Viewers',
-    ],
-
-    install_requires=[
-        'PyGObject',
-        'numpy',
-        'packaging',
     ],
 )
