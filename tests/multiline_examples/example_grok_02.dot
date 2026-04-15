@@ -1,0 +1,82 @@
+digraph GameClassDiagram {
+    graph [rankdir=TB, splines=ortho, fontname="Segoe UI", fontsize=11, bgcolor="#f8f8f8"];
+    node [shape=record, fontname="Segoe UI", fontsize=10, margin="0.2,0.1"];
+    edge [fontname="Segoe UI", fontsize=10];
+
+    // ==================== BASE CLASS ====================
+    Person [
+        URL="vscode://file/D:/projects/game/person.py:10:5;vscode://file/D:/projects/game/person.py:11:5;vscode://file/D:/projects/game/person.py:15:5|18:5|22:5;vscode://file/D:/projects/game/person.py:28:5",
+        label="{ Person |\
++ name: str\l\
++ health: int\l\
+|\
++ __init__(self, name, health=100)\l\
++ take_damage(amount: int) → bool\l\
++ is_alive() → bool\l\
+}"
+    ];
+
+    // ==================== PLAYER ====================
+    Player [
+        URL="vscode://file/D:/projects/game/player.py:12:5;vscode://file/D:/projects/game/player.py:13:5;vscode://file/D:/projects/game/player.py:14:5;vscode://file/D:/projects/game/player.py:20:5|24:5|28:5;vscode://file/D:/projects/game/player.py:35:5|40:5",
+        label="{ Player |\
++ level: int\l\
++ experience: int\l\
++ inventory: list\l\
+|\
++ __init__(self, name)\l\
++ gain_experience(amount: int)\l\
++ level_up()\l\
++ use_item(item)\l\
+}"
+    ];
+
+    // ==================== WARRIOR ====================
+    Warrior [
+        URL="vscode://file/D:/projects/game/warrior.py:11:5;vscode://file/D:/projects/game/warrior.py:12:5;vscode://file/D:/projects/game/warrior.py:18:5|22:5;vscode://file/D:/projects/game/warrior.py:30:5|35:5;vscode://file/D:/projects/game/warrior.py:42:5",
+        label="{ Warrior |\
++ strength: int\l\
++ weapon: str\l\
+|\
++ __init__(self, name, weapon)\l\
++ attack(target: Player)\l\
++ berserk_mode()\l\
+}"
+    ];
+
+    // ==================== ENEMY ====================
+    Enemy [
+        URL="vscode://file/D:/projects/game/enemy.py:9:5;vscode://file/D:/projects/game/enemy.py:10:5;vscode://file/D:/projects/game/enemy.py:15:5|19:5;vscode://file/D:/projects/game/enemy.py:25:5",
+        label="{ Enemy |\
++ damage: int\l\
++ reward: int\l\
+|\
++ __init__(self, name, damage)\l\
++ attack(target: Player)\l\
++ die()\l\
+}"
+    ];
+
+    // ==================== MAGE ====================
+    Mage [
+        URL="vscode://file/D:/projects/game/mage.py:10:5;vscode://file/D:/projects/game/mage.py:11:5;vscode://file/D:/projects/game/mage.py:12:5;vscode://file/D:/projects/game/mage.py:18:5|23:5|28:5",
+        label="{ Mage |\
++ mana: int\l\
++ spell_power: int\l\
++ spells: list\l\
+|\
++ __init__(self, name)\l\
++ cast_spell(spell_name, target)\l\
++ regenerate_mana()\l\
+}"
+    ];
+
+    // ==================== INHERITANCE EDGES ====================
+    Player  -> Person [arrowhead="onormal", color="#2e7d32"];
+    Warrior -> Player  [arrowhead="onormal", color="#2e7d32"];
+    Enemy   -> Person  [arrowhead="onormal", color="#d32f2f"];
+    Mage    -> Enemy   [arrowhead="onormal", color="#d32f2f"];
+
+    // Optional: Composition example
+    Player -> Warrior [style="dashed", arrowhead="odiamond", label="has", color="#1976d2"];
+}

@@ -1,0 +1,15 @@
+**/*.run.xml
+docs/docs/languages
+.changes/
+.idea/
+.vscode/
+.archive/
+**/*.scm
+**/*.diff
+.continue/
+
+build/
+output/
+third_party/
+Graphviz/
+gtk/

@@ -1,0 +1,22 @@
+/*
+  this file has been created by abidos
+  F. Manuel Hevia Garcia fructu@gmail.com
+*/
+digraph G {
+        graph [fontname="Segoe UI", fontsize=10];
+        node  [fontname="Segoe UI", fontsize=10, shape=box];
+        edge  [fontname="Segoe UI", fontsize=9];
+
+        node [
+                shape = "record"
+        ]
+
+        edge [
+        ]
+
+/* c_generator_class_diagram::classes() */
+  A [
+    URL="hello;world",
+    label="{hello\lworld}"
+  ]
+}

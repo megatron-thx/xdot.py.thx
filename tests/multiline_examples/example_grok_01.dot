@@ -1,0 +1,25 @@
+digraph PythonUML {
+    graph [rankdir=TB, splines=ortho, fontname="Segoe UI"];
+    node [shape=plaintext, fontname="Segoe UI"];
+
+    ClassExample [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+        <TR><TD BGCOLOR="#4a86e8" COLSPAN="2"><B>ClassExample</B></TD></TR>
+
+        <!-- Attributes -->
+        <TR><TD PORT="attr1" ALIGN="LEFT" BGCOLOR="#f0f0f0">+ name: str</TD></TR>
+        <TR><TD PORT="attr2" ALIGN="LEFT" BGCOLOR="#f0f0f0">- _secret: int</TD></TR>
+
+        <!-- Methods -->
+        <TR><TD PORT="method1" ALIGN="LEFT" BGCOLOR="#d5e8d4">+ __init__(self)</TD></TR>
+        <TR><TD PORT="method2" ALIGN="LEFT" BGCOLOR="#d5e8d4">+ process(data: list) → bool</TD></TR>
+        <TR><TD PORT="method3" ALIGN="LEFT" BGCOLOR="#d5e8d4">- _helper()</TD></TR>
+        </TABLE>
+    >];
+
+    // Clickable URLs using your multi-line format
+    ClassExample:attr1  [URL="vscode://file/D:/project/example.py:12:5"]
+    ClassExample:attr2  [URL="vscode://file/D:/project/example.py:15:5"]
+    ClassExample:method1 [URL="vscode://file/D:/project/example.py:20:5|vscode://file/D:/project/example.py:25:5"]
+    ClassExample:method2 [URL="vscode://file/D:/project/example.py:35:5"]
+}

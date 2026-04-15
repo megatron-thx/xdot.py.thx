@@ -43,6 +43,38 @@ Install in windows
 https://github.com/wingtk/gvsbuild
 
 ``` bash
+  deactivate
+  rm -rf .venv
+  python -m venv .venv
+  source .venv/Scripts/activate
+  python -m pip install --upgrade pip
+  ls gtk/
+  export GTK_ROOT="$(pwd)/gtk"
+  export PATH="$GTK_ROOT/bin:$PATH"
+  export GI_TYPELIB_PATH="$GTK_ROOT/lib/girepository-1.0"
+  export PKG_CONFIG_PATH="$GTK_ROOT/lib/pkgconfig:$PKG_CONFIG_PATH"
+  export LD_LIBRARY_PATH="$GTK_ROOT/bin:$GTK_ROOT/lib"   # sometimes helps
+  BASE_DIR="$(pwd)"
+  export PATH="$BASE_DIR/Graphviz/Graphviz-14.1.4-win64/bin:$PATH"
+  echo "GTK_ROOT = $GTK_ROOT"
+  ls -ladh /d/projects/xdot.py.thx/gtk
+  echo "GI_TYPELIB_PATH = $GI_TYPELIB_PATH"
+  ls -ladh  /d/projects/xdot.py.thx/gtk/lib/girepository-1.0
+  ls -ladh  /d/projects/xdot.py.thx/gtk/lib/girepository-1.0/*
+  pip install --force-reinstall ./gtk/wheels/pycairo-*.whl
+  pip install --force-reinstall ./gtk/wheels/pygobject-*.whl
+  pip install numpy packaging
+  python -c "
+   import gi
+   print('gi imported successfully')
+   gi.require_version('Gtk', '3.0')
+   from gi.repository import Gtk
+   print('GTK 3.0 loaded successfully!')
+   print('Version:', Gtk.get_major_version(), '.', Gtk.get_minor_version())
+  "
+
+# some steps has to be move to the previous task
+#-----------------
   rm -rf .venv
   python -m venv .venv
   source .venv/Scripts/activate
@@ -68,6 +100,7 @@ https://github.com/wingtk/gvsbuild
   pip install --force-reinstall ./gtk/wheels/pygobject-3.56.1-cp314-cp314-win_amd64.whl
 
   BASE_DIR="$(pwd)"
+  #export GTK_ROOT="$(pwd)"
   export PATH="$BASE_DIR/gtk/bin:$PATH"
   export PKG_CONFIG_PATH="$BASE_DIR/gtk/lib/pkgconfig:$PKG_CONFIG_PATH"
 
@@ -94,7 +127,7 @@ work In Windows
 ``` bash
 source activate.sh
 
-python sample.py
+python sample_multiline.py
 deactivate
 ```
 

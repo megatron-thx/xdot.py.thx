@@ -1,0 +1,143 @@
+digraph GameClassDiagram {
+    graph [rankdir=TB, splines=ortho, fontname="Segoe UI", fontsize=11, bgcolor="#f8f8f8"];
+    node [shape=record, fontname="Segoe UI", fontsize=10, margin="0.2,0.1", style=filled];
+    edge [fontname="Segoe UI", fontsize=10];
+
+    // ==================== BASE ====================
+    Person [
+        fillcolor="#e3f2fd",
+        URL="vscode://file/D:/projects/game/person.py:10:5;vscode://file/D:/projects/game/person.py:11:5;vscode://file/D:/projects/game/person.py:15:5|19:5|23:5;vscode://file/D:/projects/game/person.py:30:5",
+        label="{ Person |\
++ name: str\l\
++ health: int\l\
+|\
++ __init__(self, name, health=100)\l\
++ take_damage(amount)\l\
++ is_alive() → bool\l\
+}"
+    ];
+
+    // ==================== PLAYER SIDE ====================
+    Player [
+        fillcolor="#c8e6c9",
+        URL="vscode://file/D:/projects/game/player.py:12:5;vscode://file/D:/projects/game/player.py:13:5;vscode://file/D:/projects/game/player.py:14:5;vscode://file/D:/projects/game/player.py:20:5|25:5|30:5;vscode://file/D:/projects/game/player.py:38:5|42:5",
+        label="{ Player |\
++ level: int\l\
++ experience: int\l\
++ gold: int\l\
+|\
++ __init__(self, name)\l\
++ gain_experience()\l\
++ level_up()\l\
++ use_item(item)\l\
+}"
+    ];
+
+    Warrior [
+        fillcolor="#c8e6c9",
+        URL="vscode://file/D:/projects/game/warrior.py:11:5;vscode://file/D:/projects/game/warrior.py:12:5;vscode://file/D:/projects/game/warrior.py:13:5;vscode://file/D:/projects/game/warrior.py:19:5|23:5;vscode://file/D:/projects/game/warrior.py:31:5|36:5;vscode://file/D:/projects/game/warrior.py:45:5",
+        label="{ Warrior |\
++ strength: int\l\
++ weapon: str\l\
++ armor: int\l\
+|\
++ __init__(self, name, weapon)\l\
++ attack(target)\l\
++ berserk_mode()\l\
+}"
+    ];
+
+    Mage [
+        fillcolor="#e1bee7",
+        URL="vscode://file/D:/projects/game/mage.py:10:5;vscode://file/D:/projects/game/mage.py:11:5;vscode://file/D:/projects/game/mage.py:12:5;vscode://file/D:/projects/game/mage.py:18:5|23:5|27:5;vscode://file/D:/projects/game/mage.py:35:5",
+        label="{ Mage |\
++ mana: int\l\
++ intelligence: int\l\
++ spells: list\l\
+|\
++ __init__(self, name)\l\
++ cast_spell(name, target)\l\
++ regenerate_mana()\l\
+}"
+    ];
+
+    Rogue [
+        fillcolor="#c8e6c9",
+        URL="vscode://file/D:/projects/game/rogue.py:9:5;vscode://file/D:/projects/game/rogue.py:10:5;vscode://file/D:/projects/game/rogue.py:16:5|20:5;vscode://file/D:/projects/game/rogue.py:28:5|32:5",
+        label="{ Rogue |\
++ agility: int\l\
++ stealth: int\l\
+|\
++ __init__(self, name)\l\
++ backstab(target)\l\
++ hide()\l\
+}"
+    ];
+
+    // ==================== ENEMY SIDE ====================
+    Enemy [
+        fillcolor="#ffcdd2",
+        URL="vscode://file/D:/projects/game/enemy.py:8:5;vscode://file/D:/projects/game/enemy.py:9:5;vscode://file/D:/projects/game/enemy.py:14:5|18:5;vscode://file/D:/projects/game/enemy.py:25:5",
+        label="{ Enemy |\
++ damage: int\l\
++ reward_gold: int\l\
+|\
++ __init__(self, name, damage)\l\
++ attack(target)\l\
++ die()\l\
+}"
+    ];
+
+    Goblin [
+        fillcolor="#ffcdd2",
+        URL="vscode://file/D:/projects/game/goblin.py:9:5;vscode://file/D:/projects/game/goblin.py:10:5;vscode://file/D:/projects/game/goblin.py:15:5|19:5;vscode://file/D:/projects/game/goblin.py:26:5",
+        label="{ Goblin |\
++ sneaky: bool\l\
++ loot_table: list\l\
+|\
++ __init__(self)\l\
++ steal_gold(target)\l\
+}"
+    ];
+
+    Dragon [
+        fillcolor="#ef9a9a",
+        URL="vscode://file/D:/projects/game/dragon.py:12:5;vscode://file/D:/projects/game/dragon.py:13:5;vscode://file/D:/projects/game/dragon.py:14:5;vscode://file/D:/projects/game/dragon.py:20:5|25:5|30:5",
+        label="{ Dragon |\
++ fire_damage: int\l\
++ hoard: list\l\
++ flying: bool\l\
+|\
++ __init__(self, name)\l\
++ breath_attack()\l\
++ fly_away()\l\
+}"
+    ];
+
+    NPC [
+        fillcolor="#fff9c4",
+        URL="vscode://file/D:/projects/game/npc.py:8:5;vscode://file/D:/projects/game/npc.py:9:5;vscode://file/D:/projects/game/npc.py:14:5|18:5;vscode://file/D:/projects/game/npc.py:25:5",
+        label="{ NPC |\
++ dialogue: str\l\
++ quest_id: int\l\
+|\
++ __init__(self, name)\l\
++ talk_to(player)\l\
++ give_quest()\l\
+}"
+    ];
+
+    // ==================== INHERITANCE ====================
+    Player  -> Person  [arrowhead="onormal", color="#2e7d32"];
+    Warrior -> Player  [arrowhead="onormal", color="#2e7d32"];
+    Mage    -> Player  [arrowhead="onormal", color="#2e7d32"];
+    Rogue   -> Player  [arrowhead="onormal", color="#2e7d32"];
+
+    Goblin  -> Enemy   [arrowhead="onormal", color="#c62828"];
+    Dragon  -> Enemy   [arrowhead="onormal", color="#c62828"];
+
+    NPC     -> Person  [arrowhead="onormal", color="#f9a825", style="dashed"];
+
+    // Composition
+    Player -> Dragon [style="dashed", arrowhead="odiamond", label="fights", color="#1976d2"];
+}

@@ -1,0 +1,124 @@
+digraph GameClassDiagram {
+    graph [rankdir=TB, splines=ortho, fontname="Segoe UI", fontsize=11, bgcolor="#f8f8f8"];
+    node [shape=record, fontname="Segoe UI", fontsize=10, margin="0.2,0.1", style=filled];
+    edge [fontname="Segoe UI", fontsize=10];
+
+    // ====================== CLUSTERS / PACKAGES ======================
+    subgraph cluster_base {
+        label="Base";
+        style="rounded,filled";
+        fillcolor="#e3f2fd";
+        color="#90caf9";
+
+        Person [
+            fillcolor="#e3f2fd",
+            URL="vscode://file/D:/projects/game/person.py:10:5;vscode://file/D:/projects/game/person.py:11:5;vscode://file/D:/projects/game/person.py:15:5|19:5|23:5;vscode://file/D:/projects/game/person.py:30:5",
+            label="{ Person | + name: str\l + health: int\l | + __init__()\l + take_damage()\l + is_alive()\l }"
+        ];
+    }
+
+    subgraph cluster_players {
+        label="Players";
+        style="rounded,filled";
+        fillcolor="#e8f5e9";
+        color="#81c784";
+
+        Player [
+            fillcolor="#c8e6c9",
+            URL="vscode://file/D:/projects/game/player.py:12:5;vscode://file/D:/projects/game/player.py:13:5;vscode://file/D:/projects/game/player.py:14:5;vscode://file/D:/projects/game/player.py:20:5|25:5|30:5;vscode://file/D:/projects/game/player.py:38:5|42:5",
+            label="{ Player | + level: int\l + experience: int\l + gold: int\l | + __init__()\l + gain_experience()\l + level_up()\l + use_item()\l }"
+        ];
+
+        Warrior [
+            fillcolor="#c8e6c9",
+            URL="vscode://file/D:/projects/game/warrior.py:11:5;vscode://file/D:/projects/game/warrior.py:12:5;vscode://file/D:/projects/game/warrior.py:13:5;vscode://file/D:/projects/game/warrior.py:19:5|23:5;vscode://file/D:/projects/game/warrior.py:31:5|36:5;vscode://file/D:/projects/game/warrior.py:45:5",
+            label="{ Warrior | + strength: int\l + weapon: str\l + armor: int\l | + __init__()\l + attack()\l + berserk_mode()\l }"
+        ];
+
+        Mage [
+            fillcolor="#e1bee7",
+            URL="vscode://file/D:/projects/game/mage.py:10:5;vscode://file/D:/projects/game/mage.py:11:5;vscode://file/D:/projects/game/mage.py:12:5;vscode://file/D:/projects/game/mage.py:18:5|23:5|27:5;vscode://file/D:/projects/game/mage.py:35:5",
+            label="{ Mage | + mana: int\l + intelligence: int\l + spells: list\l | + __init__()\l + cast_spell()\l + regenerate_mana()\l }"
+        ];
+
+        Rogue [
+            fillcolor="#c8e6c9",
+            URL="vscode://file/D:/projects/game/rogue.py:9:5;vscode://file/D:/projects/game/rogue.py:10:5;vscode://file/D:/projects/game/rogue.py:16:5|20:5;vscode://file/D:/projects/game/rogue.py:28:5|32:5",
+            label="{ Rogue | + agility: int\l + stealth: int\l + dagger: str\l | + __init__()\l + backstab()\l + hide()\l }"
+        ];
+    }
+
+    subgraph cluster_enemies {
+        label="Enemies";
+        style="rounded,filled";
+        fillcolor="#ffebee";
+        color="#ef5350";
+
+        Enemy [
+            fillcolor="#ffcdd2",
+            URL="vscode://file/D:/projects/game/enemy.py:8:5;vscode://file/D:/projects/game/enemy.py:9:5;vscode://file/D:/projects/game/enemy.py:14:5|18:5;vscode://file/D:/projects/game/enemy.py:25:5",
+            label="{ Enemy | + damage: int\l + reward_gold: int\l | + __init__()\l + attack()\l + die()\l }"
+        ];
+
+        Goblin [
+            fillcolor="#ffcdd2",
+            URL="vscode://file/D:/projects/game/goblin.py:9:5;vscode://file/D:/projects/game/goblin.py:10:5;vscode://file/D:/projects/game/goblin.py:15:5|19:5;vscode://file/D:/projects/game/goblin.py:26:5",
+            label="{ Goblin | + sneaky: bool\l + loot_table: list\l | + __init__()\l + steal_gold()\l }"
+        ];
+
+        Dragon [
+            fillcolor="#ef9a9a",
+            URL="vscode://file/D:/projects/game/dragon.py:12:5;vscode://file/D:/projects/game/dragon.py:13:5;vscode://file/D:/projects/game/dragon.py:14:5;vscode://file/D:/projects/game/dragon.py:20:5|25:5|30:5",
+            label="{ Dragon | + fire_damage: int\l + hoard: list\l + flying: bool\l | + __init__()\l + breath_attack()\l + fly_away()\l }"
+        ];
+
+        Orc [
+            fillcolor="#ffcdd2",
+            URL="vscode://file/D:/projects/game/orc.py:10:5;vscode://file/D:/projects/game/orc.py:11:5;vscode://file/D:/projects/game/orc.py:16:5|20:5;vscode://file/D:/projects/game/orc.py:28:5",
+            label="{ Orc | + rage: int\l + club: str\l | + __init__()\l + smash()\l }"
+        ];
+    }
+
+    subgraph cluster_world {
+        label="World / NPC";
+        style="rounded,filled";
+        fillcolor="#fff9c4";
+        color="#fdd835";
+
+        NPC [
+            fillcolor="#fff9c4",
+            URL="vscode://file/D:/projects/game/npc.py:8:5;vscode://file/D:/projects/game/npc.py:9:5;vscode://file/D:/projects/game/npc.py:14:5|18:5;vscode://file/D:/projects/game/npc.py:25:5",
+            label="{ NPC | + dialogue: str\l + quest_id: int\l | + __init__()\l + talk_to()\l + give_quest()\l }"
+        ];
+
+        Merchant [
+            fillcolor="#fff9c4",
+            URL="vscode://file/D:/projects/game/merchant.py:9:5;vscode://file/D:/projects/game/merchant.py:10:5;vscode://file/D:/projects/game/merchant.py:15:5|20:5;vscode://file/D:/projects/game/merchant.py:28:5",
+            label="{ Merchant | + inventory: list\l + gold: int\l | + __init__()\l + sell_item()\l + buy_item()\l }"
+        ];
+
+        QuestGiver [
+            fillcolor="#fff9c4",
+            URL="vscode://file/D:/projects/game/questgiver.py:10:5;vscode://file/D:/projects/game/questgiver.py:11:5;vscode://file/D:/projects/game/questgiver.py:16:5|21:5",
+            label="{ QuestGiver | + quests: list\l | + __init__()\l + assign_quest()\l }"
+        ];
+    }
+
+    // ====================== INHERITANCE (Reversed for top-down) ======================
+    /*Player -> Person*/  Person  -> Player  [dir="back", arrowhead="onormal", color="#2e7d32"];
+    Player  -> Warrior [dir="back", arrowhead="onormal", color="#2e7d32"];
+    Player  -> Mage    [dir="back", arrowhead="onormal", color="#2e7d32"];
+    Player  -> Rogue   [dir="back", arrowhead="onormal", color="#2e7d32"];
+
+    Enemy   -> Goblin  [dir="back", arrowhead="onormal", color="#c62828"];
+    Enemy   -> Dragon  [dir="back", arrowhead="onormal", color="#c62828"];
+    Enemy   -> Orc     [dir="back", arrowhead="onormal", color="#c62828"];
+
+    Person  -> NPC     [dir="back", arrowhead="onormal", color="#f9a825", style="dashed"];
+    NPC     -> Merchant [dir="back", arrowhead="onormal", color="#f9a825", style="dashed"];
+    NPC     -> QuestGiver [dir="back", arrowhead="onormal", color="#f9a825", style="dashed"];
+
+    // ====================== COMPOSITION ======================
+    Player -> Dragon   [style="dashed", arrowhead="odiamond", label="fights", color="#1976d2", fontcolor="#1976d2"];
+    Player -> Merchant [style="dashed", arrowhead="odiamond", label="trades", color="#1976d2"];
+}

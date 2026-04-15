@@ -30,9 +30,10 @@ from gi.repository import PangoCairo
 import cairo
 import numpy
 
+from xdot.config import config
+
 _inf = float('inf')
 _get_bounding = operator.attrgetter('bounding')
-
 
 class Shape:
     """Abstract base class for all the drawing shapes."""
@@ -615,6 +616,51 @@ class Node(Element):
     def is_inside(self, x, y, radius):
         return self.x1 <= x and x <= self.x2 and self.y1 <= y and y <= self.y2
 
+    # megatron-thx multiline patch {
+    #
+    # y2_inside the top of the node is 0
+    #           and the bottom is the height
+    #
+    # y is global, i want the position with the top of node
+    #
+    def get_item_url(self, x, y):
+        item_selected = ""
+        if ( self.y1 >= 0 ):
+          y_inside = y - self.y1
+        else:
+          y_inside = y + self.y1
+
+        url=Url(self, self.url)
+
+        l_class_parts = url.url.split(config.line_separator)
+
+        n_parts = len(l_class_parts)
+
+        element_height = (self.y2 - self.y1) / n_parts
+        y_inside_centered = y_inside
+
+        n_element = int( math.ceil( y_inside_centered / element_height ) ) - 1
+
+        if( 0 <= n_element and n_element <= n_parts):
+            url.url = l_class_parts[n_element]
+
+        return url
+
+    def get_url_multi_line(self, x, y, radius):
+        if not self.is_inside(x, y, radius):
+            return None
+
+        if self.url is None:
+            return None
+
+        url = self.get_item_url(x,y)
+
+        if self.is_inside(x, y, radius):
+            return url
+        return None
+    #}
+
+
     def get_url(self, x, y, radius):
         if self.url is None:
             return None
@@ -775,7 +821,10 @@ class Graph(Shape):
 
     def get_url(self, x, y, radius):
         for node in self.nodes:
-            url = node.get_url(x, y, radius)
+            if config.multi_line_activate:
+                url = node.get_url_multi_line(x, y, radius)
+            else:
+                url = node.get_url(x, y, radius)
             if url is not None:
                 return url
         for edge in self.edges:

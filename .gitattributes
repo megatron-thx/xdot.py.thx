@@ -1,0 +1,4 @@
+
+* text=auto eol=lf
+*.dot text eol=lf diff
+
