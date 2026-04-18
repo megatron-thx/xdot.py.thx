@@ -25,6 +25,8 @@
 #
 
 import os
+import sys
+import subprocess
 import warnings
 
 base = os.path.dirname(os.path.abspath(__file__))
@@ -74,13 +76,19 @@ class MyDotWindow(xdot.ui.DotWindow):
         # Example: vscode://file/C:/path/to/file.py:42:10
         if url.startswith("vscode://file/"):
             try:
-                # You can call code.exe directly or use os.startfile
-                #
-                # TODO: todo: ACTIVATE THIS
-                os.system(f'code --goto "{url[16:]}"')   # remove "vscode://file/"
-                pass
+                path_args = url[16:]  # removes "vscode://file/"
+
+                # ✅ Replace os.system() with this:
+                if sys.platform == "win32":
+                    subprocess.Popen(
+                        ["code", "--goto", path_args],
+                        creationflags=subprocess.CREATE_NO_WINDOW  # Hides cmd.exe
+                    )
+                else:
+                    subprocess.Popen(["code", "--goto", path_args])
+
             except Exception as e:
-                print("Failed to open in VSCode:", e)
+                print(f"Failed to open in VSCode: {e}", file=sys.stderr)
 
     '''
     def on_url_clicked(self, widget, url, event):

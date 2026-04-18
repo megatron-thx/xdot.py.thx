@@ -623,6 +623,30 @@ class Node(Element):
     #
     # y is global, i want the position with the top of node
     #
+
+    def get_url_with_file(self, l_class_parts, n_element):
+        '''
+            to save espace in a node class the file
+            can be only in the first line
+        '''
+        url_str = l_class_parts[n_element]
+
+        # Split on ':' and rejoin everything except last two parts
+        parts = url_str.split(':')
+        file_name = ':'.join(parts[:-2])
+
+        if file_name == "":
+            # extract the file from the first url
+            url_str_0 = l_class_parts[0]
+
+            parts_0 = url_str_0.split(':')
+            file_name = ':'.join(parts_0[:-2])
+
+            # whe put the original file, column
+            url_str = file_name + ':' +  ':'.join(parts[-2:])
+
+        return url_str
+
     def get_item_url(self, x, y):
         item_selected = ""
         if ( self.y1 >= 0 ):
@@ -639,10 +663,10 @@ class Node(Element):
         element_height = (self.y2 - self.y1) / n_parts
         y_inside_centered = y_inside
 
-        n_element = int( math.ceil( y_inside_centered / element_height ) ) - 1
+        n_element = int( y_inside_centered  / element_height )
 
         if( 0 <= n_element and n_element <= n_parts):
-            url.url = l_class_parts[n_element]
+            url.url = self.get_url_with_file(l_class_parts, n_element)
 
         return url
 
