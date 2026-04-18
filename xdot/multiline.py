@@ -27,11 +27,7 @@ class MultilineDotWindow(DotWindow):
         if not url:
             return True
         print("Clicked URL:", url, file=sys.stderr)
-        if config.multi_line_activate and config.line_separator in url:
-            for single_url in url.split(config.line_separator):
-                self._open_url(single_url)
-        else:
-            self._open_url(url)
+        self._open_url(url)
         return True
 
     def _open_url(self, url):
