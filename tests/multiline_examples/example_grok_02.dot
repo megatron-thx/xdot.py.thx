@@ -5,7 +5,7 @@ digraph GameClassDiagram {
 
     // ==================== BASE CLASS ====================
     Person [
-        URL="vscode://file/D:/projects/game/person.py:10:5;vscode://file/D:/projects/game/person.py:11:5;vscode://file/D:/projects/game/person.py:15:5|18:5|22:5;vscode://file/D:/projects/game/person.py:28:5",
+        URL="vscode://file/D:/projects/game/person.py:10:5;vscode://file/game/person.py:11:5;vscode://file/D:/projects/game/person.py:15:5|18:5|22:5;vscode://file/D:/projects/game/person.py:28:5",
         label="{ Person |\
 + name: str\l\
 + health: int\l\

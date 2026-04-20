@@ -30,21 +30,45 @@ class MultilineDotWindow(DotWindow):
         self._open_url(url)
         return True
 
+    def _abs_url(self, url):
+        abs_url = url
+
+        path_with_pos = url[len("vscode://file/"):]
+
+        # Split off line/column if present
+        parts = path_with_pos.split(":")
+        clean_path = ":".join(parts[:-2])
+
+        file_path = clean_path
+
+        suffix = ":".join(parts[-2:]) if len(parts) > 1 else ""
+
+        # Resolve relative paths
+        if not os.path.isabs(clean_path):
+            file_path = os.path.abspath(clean_path)
+
+        # Rebuild vscode://file URI
+        abs_url = f"vscode://file/{file_path}"
+        if suffix:
+            abs_url += f":{suffix}"
+
+        return abs_url
+
     def _open_url(self, url):
         if url.startswith("vscode://file/"):
+            abs_url = self._abs_url(url)
             try:
                 if sys.platform == "win32":
                     # ✅ Windows: let the OS handle the URI protocol
-                    os.startfile(url)
+                    os.startfile(abs_url)
                 else:
                     # Linux/macOS fallback: use xdg-open or open
                     import subprocess
                     opener = "xdg-open" if sys.platform.startswith("linux") else "open"
-                    subprocess.Popen([opener, url])
+                    subprocess.Popen([opener, abs_url])
 
             except Exception as e:
                 print(f"Failed to open in VSCode: {e}", file=sys.stderr)
-
 
 def _setup_graphviz_path():
     """Optionally inject local Graphviz into PATH (useful for dev/CI)."""

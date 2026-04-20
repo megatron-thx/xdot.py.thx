@@ -12,7 +12,7 @@ digraph GameClassDiagram {
 
         Person [
             fillcolor="#e3f2fd",
-            URL="vscode://file/D:/projects/game/person.py:10:5;vscode://file/D:/projects/game/person.py:11:5;vscode://file/D:/projects/game/person.py:15:5|19:5|23:5;vscode://file/D:/projects/game/person.py:30:5",
+            URL="vscode://file/game/person.py:10:5;vscode://file/D:/projects/game/person.py:11:5;vscode://file/D:/projects/game/person.py:15:5|19:5|23:5;vscode://file/D:/projects/game/person.py:30:5",
             label="{ Person | + name: str\l + health: int\l | + __init__()\l + take_damage()\l + is_alive()\l }"
         ];
     }
