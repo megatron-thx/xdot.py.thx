@@ -8,10 +8,12 @@ from dataclasses import dataclass
 class Config:
     multi_line_activate: bool
     line_separator: str
+    dark_theme: bool
 
 config = Config(
-    multi_line_activate= False,
-    line_separator= ";"
+    multi_line_activate = False,
+    line_separator = ";",
+    dark_theme = False
 )
 
 print(config)

@@ -44,6 +44,7 @@ from . import animation
 from . import actions
 from .elements import Graph
 
+from xdot.config import config
 
 class DotWidget(Gtk.DrawingArea):
     """GTK widget that draws dot graphs."""
@@ -212,8 +213,15 @@ class DotWidget(Gtk.DrawingArea):
 
     def on_draw(self, widget, cr):
         rect = self.get_allocation()
-        Gtk.render_background(self.get_style_context(), cr, 0, 0,
-                              rect.width, rect.height)
+
+        if config.dark_theme:
+            # 1️⃣ Explicit black background for the graph canvas
+            cr.set_source_rgb(0.0, 0.0, 0.0)
+            cr.rectangle(0, 0, rect.width, rect.height)
+            cr.fill()
+        else:
+            Gtk.render_background(self.get_style_context(), cr, 0, 0,
+                                rect.width, rect.height)
 
         cr.save()
         self._draw_graph(cr, rect)

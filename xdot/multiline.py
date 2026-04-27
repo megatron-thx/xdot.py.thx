@@ -7,7 +7,7 @@ import argparse
 import warnings
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk
+from gi.repository import Gtk, Gdk
 
 # Silence known harmless GTK warnings
 warnings.filterwarnings("ignore", category=RuntimeWarning,
@@ -80,6 +80,96 @@ def _setup_graphviz_path():
     elif not os.environ.get("PATH") or "graphviz" not in os.environ["PATH"].lower():
         print("⚠️ Graphviz not found in PATH. Ensure `dot` is accessible.", file=sys.stderr)
 
+def _set_dark_theme():
+   # 🔒 SAFE DARK MODE INITIALIZATION
+    settings = Gtk.Settings.get_default()
+    if settings:
+        try:
+            settings.props.gtk_application_prefer_dark_variant = True
+        except (TypeError, AttributeError):
+            pass  # Property not available in this GTK build; CSS will handle it
+
+    css_provider = Gtk.CssProvider()
+
+    css_provider.load_from_data(b"""
+        /* Remove all borders from window and titlebar */
+        window {
+            background: #1e1e1e;
+            background-color: #1e1e1e;
+        }
+
+        .titlebar, headerbar {
+            background: #1e1e1e;
+            background-color: #1e1e1e;
+            background-image: none;
+            border: none;
+            border-bottom: none;
+            box-shadow: none;
+            color: #e0e0e0;
+        }
+
+        .titlebar:backdrop, headerbar:backdrop {
+            background: #1e1e1e;
+            background-color: #1e1e1e;
+            background-image: none;
+            border: none;
+        }
+
+        /* Remove any separators or borders in toolbar */
+        toolbar {
+            background: #1e1e1e;
+            background-color: #1e1e1e;
+            border: none;
+            box-shadow: none;
+        }
+
+        /* Target any remaining borders */
+        .titlebar separator, headerbar separator,
+        toolbar separator {
+            background: #333333;
+        }
+
+        toolbar {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+            border-bottom: 1px solid #333;
+        }
+        menu, .menu, .popup {
+            background-color: #2d2d2d;
+            color: #e0e0e0;
+            border: 1px solid #444;
+        }
+        menuitem, .menuitem {
+            background-color: transparent;
+            color: #e0e0e0;
+        }
+        menuitem:hover, .menuitem:hover {
+            background-color: #3a3a3a;
+        }
+        entry, .entry {
+            background-color: #333333;
+            color: #ffffff;
+            border: 1px solid #555;
+        }
+        tooltip {
+            background-color: #333;
+            color: #eee;
+            border: 1px solid #555;
+        }
+    """)
+
+    # Apply CSS to the default display (GTK 3.10+) with fallback for older builds
+    """
+    display = Gdk.Display.get_default()
+    if display:
+        Gtk.StyleContext.add_provider_for_display(display, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+    else:
+    """
+    if True:
+        screen = Gdk.Screen.get_default()
+        if screen:
+            Gtk.StyleContext.add_provider_for_screen(screen, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
 def main():
     parser = argparse.ArgumentParser(description="Interactive multiline xdot viewer")
     parser.add_argument("dotfile", nargs="?", default=None, help="Path to the .dot file")
@@ -91,6 +181,10 @@ def main():
         _setup_graphviz_path()
 
     config.multi_line_activate = True
+    config.dark_theme = True
+
+    if config.dark_theme:
+        _set_dark_theme()
 
     window = MultilineDotWindow()
     if args.dotfile:

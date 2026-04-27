@@ -1,5 +1,6 @@
 digraph GameClassDiagram {
-    graph [rankdir=TB, splines=ortho, fontname="Segoe UI", fontsize=11, bgcolor="#f8f8f8"];
+    //graph [rankdir=TB, splines=ortho, fontname="Segoe UI", fontsize=11, bgcolor="#f8f8f8"];
+    graph [rankdir=TB, splines=ortho, fontname="Segoe UI", fontsize=11, bgcolor="#00000000"];
     node [shape=record, fontname="Segoe UI", fontsize=10, margin="0.2,0.1", style=filled];
     edge [fontname="Segoe UI", fontsize=10];
 
