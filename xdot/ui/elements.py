@@ -648,11 +648,13 @@ class Node(Element):
         return url_str
 
     def get_item_url(self, x, y):
+        y_correction_factor = config.y_correction_factor
+
         item_selected = ""
         if ( self.y1 >= 0 ):
-          y_inside = y - self.y1
+          y_inside = y - self.y1 - y_correction_factor
         else:
-          y_inside = y + self.y1
+          y_inside = y + self.y1 + y_correction_factor
 
         url=Url(self, self.url)
 
@@ -660,13 +662,15 @@ class Node(Element):
 
         n_parts = len(l_class_parts)
 
-        element_height = (self.y2 - self.y1) / n_parts
+        element_height = ((self.y2 - y_correction_factor) - (self.y1 + y_correction_factor)) / n_parts
         y_inside_centered = y_inside
 
         n_element = int( y_inside_centered  / element_height )
 
-        if( 0 <= n_element and n_element <= n_parts):
+        if 0 <= n_element and n_element < n_parts :
             url.url = self.get_url_with_file(l_class_parts, n_element)
+        elif n_parts > 0:
+            url.url = self.get_url_with_file(l_class_parts, 0)
 
         return url
 
